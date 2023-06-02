@@ -18,16 +18,27 @@
         const index = $selectedArtists.findIndex(item => item.uri == uri)
         $selectedArtists.splice(index, 1)
         $selectedArtists = $selectedArtists
+        removeClasses(uri)
+        
     }
 
     const removeTrack = (uri) => {
         const index = $selectedTracks.findIndex(item => item.uri == uri)
         $selectedTracks.splice(index, 1)
         $selectedTracks = $selectedTracks
+        removeClasses(uri)
     }
 
     const toggleMenu = () => {
         isVisible = !isVisible
+    }
+
+    const removeClasses = (uri) => {
+        const element = document.getElementById(uri)
+        if (element != null) {
+            element.classList.add("bg-slate-700", "hover:bg-slate-600")
+            element.classList.remove("bg-emerald-600", "hover:bg-red-400")
+        }
     }
 
     async function getRecommendations() {
@@ -83,9 +94,10 @@
 
 </script>
 
-<div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" style="background-color: rgba(0, 0, 0, 0.5)"></div>
+<!-- svelte-ignore a11y-click-events-have-key-events -->
+<div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" on:click={toggleMenu} style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div class="fixed top-[20px] right-[20px] bg-white p-4 rounded-sm shadow-md z-40 max-w-[300px] md:max-w-[400px] max-h-[800px] 2xl:max-h-[950px] overflow-auto {isVisible ? '' : 'hidden'}">
+<div class="fixed top-[20px] right-[20px] bg-white p-4 rounded-sm shadow-md z-40 max-w-[350px] md:max-w-[400px] max-h-[700px] 2xl:max-h-[850px] overflow-auto {isVisible ? '' : 'hidden'}">
     <h1 class="text-center text-xl tracking-wider font-semibold ">Parámetros de la lista personalizada</h1>
 
     <div class="flex justify-between mt-2">
@@ -164,6 +176,6 @@
 </div>
 
 <button class="fixed bottom-[20px] right-[20px] bg-white p-4 rounded-sm shadow-md z-50 max-w-[300px] md:max-w-[400px]" on:click={toggleMenu}>
-    Mostrar / ocultar menú
+    Menú ({$selectedTracks.length + $selectedArtists.length}/5)
 </button>
 

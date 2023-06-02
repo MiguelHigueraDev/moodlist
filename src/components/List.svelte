@@ -2,8 +2,11 @@
     //@ts-nocheck
 	import { afterUpdate, onMount } from "svelte";
     import { token, timeRange, tokenExpired, selectedArtists, selectedTracks } from "../stores";
+    import { toast } from '@zerodevx/svelte-toast';
 
     export let collectionType, collectionMap;
+
+    let tiles = []
 
     // Handle list selections
 
@@ -21,9 +24,11 @@
                     if (check != -1) {
                         $selectedArtists.splice(check, 1)
                         $selectedArtists = $selectedArtists
+                        switchColor(finalUri, false)
                     } else {
-                        if(artists.length + tracks.length > 4) return alert("¡Solo puedes agregar un máximo de 5 elementos!")
+                        if(artists.length + tracks.length > 4) return toast.push('¡Sólo puedes agregar un máximo de 5 elementos!')
                         addArtist(finalUri, name, art)
+                        switchColor(finalUri, true)
                     }
                 }
 
@@ -32,13 +37,25 @@
                     if (check != -1) {
                         $selectedTracks.splice(check, 1)
                         $selectedTracks = $selectedTracks
+                        switchColor(finalUri, false)
                     } else {
-                        if(artists.length + tracks.length > 4) return alert("¡Solo puedes agregar un máximo de 5 elementos!")
+                        if(artists.length + tracks.length > 4) return toast.push('¡Sólo puedes agregar un máximo de 5 elementos!')
                         addTrack(finalUri, name, artist_name, art)
+                        switchColor(finalUri, true)
                     }
                 }
             }
         }
+
+    const switchColor = (uri, enable) => {
+        if(enable) {
+            tiles[uri].classList.add("bg-emerald-600", "hover:bg-red-400")
+            tiles[uri].classList.remove("bg-slate-700", "hover:bg-slate-600")
+        } else {
+            tiles[uri].classList.add("bg-slate-700", "hover:bg-slate-600")
+            tiles[uri].classList.remove("bg-emerald-600", "hover:bg-red-400")
+        }
+    }
 
     const addArtist = (uri, name, art) => {
         $selectedArtists = [...$selectedArtists, {
@@ -93,7 +110,7 @@
             {#each collection as {name, art, artist_name, info, link, uri}, i}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <li on:click={addItem(uri, name, artist_name, art)}>
-                <div class="bg-slate-700 flex flex-col items-center rounded p-6 m-4 h-[230px] hover:bg-slate-600 hover:cursor-pointer">
+                <div class="flex flex-col items-center rounded p-6 m-4 h-[230px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600 { tiles.includes(uri.slice(0, -3)) ? 'test' : 'fail' } " bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
                     <img src={art} alt={name} class="w-[150px] h-[150px] object-cover" />
                     {#if artist_name != undefined && artist_name != null}
                         <p class="text-white text-xs text-center mt-2">{artist_name} - {name}</p>
