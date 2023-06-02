@@ -16,7 +16,7 @@ export const token = readable(null, function start(set) {
 });
 
 export const appUrl = readable(null, function start(set){
-    set("https://moodlist.vercel.app/")
+    set("http://moodlist.vercel.app/")
 });
 
 export const timeRange = writable('short_term');
