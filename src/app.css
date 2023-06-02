@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-slate-900
+}
+
+.paddingX {
+  @apply sm:px-16 px-6
+}
+
+.heroHeadText {
+  @apply font-black text-white mt-2
+}
+
+
+.green-text-gradient {
+    background: #11998e; /* fallback for old browsers */
+    background: -webkit-linear-gradient(
+      to top,
+      #11998e,
+      #38ef7d
+    ); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(
+      to top,
+      #11998e,
+      #38ef7d
+    ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
