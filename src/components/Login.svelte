@@ -35,7 +35,8 @@
 <section class="relative w-full h-screen mx-auto">
     <div class="paddingX absolute inset-0 max-w-7xl mx-auto flex justify-center items-center">
         <div class="flex justify-center align-bottom flex-col gap-4">
-            <h1 class="font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[50px] text-[40px] lg:leading-[98px] sm:text-center mt-2">Obtén recomendaciones basadas en tus gustos</h1>
+            <h1 class="text-white font-black text-6xl sm:text-5xl md:text-[120px] green-text-gradient text-center">MoodList</h1>
+            <h1 class="font-black text-white lg:text-[80px] sm:text-[60px] xs:text-[50px] text-[40px] lg:leading-[98px] text-center mt-2">Obtén recomendaciones basadas en tus gustos</h1>
             <h2 class="font-black text-center text-white lg:text-[60px] sm:text-[45px] xs:text-[35px] text-[30px] lg:leading-[98px] mt-2">De acuerdo a 
                 <Typewriter mode={"loopRandom"} interval={100} unwriteInterval={50}>
                 <span class="green-text-gradient text-center">su positividad</span>
@@ -55,6 +56,9 @@
                     <label id="checkbox-text" for="remember-me" class="text-white ml-2">Recúerdame</label>
                     <input id="remember-me" name="remember-me" type="checkbox" bind:checked={rememberMe} />
                 </div>
+            </div>
+            <div id="privacy" class="mt-5 text-center text-white font-semibold text-sm">
+                <h2>Tu información no se guardará en ningún lugar. Solamente necesito acceso a tus datos para cargar tus canciones.</h2>
             </div>
         </div>
     </div>
