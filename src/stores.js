@@ -20,6 +20,7 @@ export const appUrl = readable(null, function start(set){
 });
 
 export const timeRange = writable('short_term');
+export const collectionSize = writable(15);
 
 export const selectedArtists = writable([]);
 export const selectedTracks = writable([]);

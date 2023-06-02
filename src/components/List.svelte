@@ -1,8 +1,9 @@
 <script>
     //@ts-nocheck
-	import { afterUpdate, onMount } from "svelte";
-    import { token, timeRange, tokenExpired, selectedArtists, selectedTracks } from "../stores";
-    import { toast } from '@zerodevx/svelte-toast';
+	import { afterUpdate, onMount } from "svelte"
+    import { token, timeRange, tokenExpired, selectedArtists, selectedTracks, collectionSize } from "../stores"
+    import { toast } from '@zerodevx/svelte-toast'
+    import { fade } from 'svelte/transition'
 
     export let collectionType, collectionMap;
 
@@ -81,7 +82,7 @@
         const url = new URL(`https://api.spotify.com/v1/me/top/${collectionType}?`);
         const params = new URLSearchParams({
             time_range: $timeRange,
-            limit: 15,
+            limit: $collectionSize,
             offset: 0,
         });
 
@@ -109,7 +110,7 @@
         {#if collection}
             {#each collection as {name, art, artist_name, info, link, uri}, i}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <li on:click={addItem(uri, name, artist_name, art)}>
+            <li on:click={addItem(uri, name, artist_name, art)} transition:fade>
                 <div class="flex flex-col items-center rounded p-6 m-4 h-[230px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600 { tiles.includes(uri.slice(0, -3)) ? 'test' : 'fail' } " bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
                     <img src={art} alt={name} class="w-[150px] h-[150px] object-cover" />
                     {#if artist_name != undefined && artist_name != null}
