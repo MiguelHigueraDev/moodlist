@@ -1,6 +1,6 @@
 <script>
     //@ts-nocheck
-    import { selectedTracks, selectedArtists } from "../stores";
+    import { selectedTracks, selectedArtists, token, tokenExpired, recommendations } from "../stores";
 
     let isVisible = false
 
@@ -9,10 +9,10 @@
     let popularity = 50
     let danceability = 5
 
-    let useEnergy = true
-    let useValence = true
-    let usePopularity = true
-    let useDanceability = true
+    let useEnergy = false
+    let useValence = false
+    let usePopularity = false
+    let useDanceability = false
 
     const removeArtist = (uri) => {
         const index = $selectedArtists.findIndex(item => item.uri == uri)
@@ -30,15 +30,62 @@
         isVisible = !isVisible
     }
 
-    const getRecommendations = () => {
-        
+    async function getRecommendations() {
+        // First convert all parameters so they are valid
+        const en = convertNumbers(energy)
+        const va = convertNumbers(valence)
+        const da = convertNumbers(danceability)
+
+        // Convert all artists and tracks to a valid string
+        let tracks = ""
+        for (const tr of $selectedTracks) {
+            tracks += tr.uri + ","
+        }
+
+        let artists = ""
+        for (const ar of $selectedArtists) {
+            artists += ar.uri + ","
+        }
+
+        // Create search string
+        const accessToken = $token
+        const url = new URL(`https://api.spotify.com/v1/recommendations?`)
+        const params = new URLSearchParams({
+            seed_artists: artists,
+            seed_tracks: tracks,
+            target_energy: en,
+            target_valence: va,
+            target_danceability: da,
+            target_popularity: popularity
+        })
+
+        if (accessToken) {
+            const res = await fetch(url + params, {
+                headers: {
+                    Authorization: "Bearer " + accessToken,
+                },
+            })
+
+            if (res.ok) {
+                const data = await res.json();
+                //console.log(data.tracks)
+                $recommendations = data.tracks
+            } else {
+                tokenExpired.set(true)
+            }
+        }
+    }
+
+    // Converts numbers from 1-10 to 0.1-1
+    const convertNumbers = (num) => {
+        return (num - 1) / 9 * 0.9 + 0.1
     }
 
 </script>
 
 <div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div class="fixed top-[20px] right-[20px] bg-white p-4 rounded-sm shadow-md z-40 max-w-[300px] md:max-w-[400px] {isVisible ? '' : 'hidden'}">
+<div class="fixed top-[20px] right-[20px] bg-white p-4 rounded-sm shadow-md z-40 max-w-[300px] md:max-w-[400px] max-h-[800px] 2xl:max-h-[950px] overflow-auto {isVisible ? '' : 'hidden'}">
     <h1 class="text-center text-xl tracking-wider font-semibold ">Parámetros de la lista personalizada</h1>
 
     <div class="flex justify-between mt-2">
@@ -86,7 +133,6 @@
         <h1 class="text-center text-xl tracking-wider font-semibold mt-5 mb-3">Artistas seleccionados</h1>
         <ul>
             {#each $selectedArtists as artist}
-                <li class="hidden">{artist.uri}</li>
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="flex flex-row gap-3 items-center mt-2 hover:bg-red-400 rounded hover:cursor-pointer" on:click={removeArtist(artist.uri)}>
                     <img class="w-14 h-14 object-contain" src={artist.art} alt={artist.name} />
@@ -100,7 +146,6 @@
         <h1 class="text-center text-xl tracking-wider font-semibold mt-5 mb-3">Canciones seleccionadas</h1>
         <ul>
             {#each $selectedTracks as track}
-                <li class="hidden">{track.uri}</li>
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="flex flex-row gap-3 items-center mt-2 hover:bg-red-400 rounded hover:cursor-pointer" on:click={removeTrack(track.uri)}>
                     <img class="w-14 h-14 object-contain" src={track.art} alt={track.name} />
@@ -111,7 +156,7 @@
     {/if}
 
     {#if $selectedTracks.length > 0 || $selectedArtists.length > 0}
-        <button class="mt-5 w-full bg-slate-700 hover:bg-slate-600 rounded p-3 text-white tracking-widest uppercase font-semibold" on:click={getRecommendations()}>Generar lista de canciones</button>
+        <button class="mt-5 w-full bg-slate-700 hover:bg-slate-600 rounded p-3 text-white tracking-widest uppercase font-semibold" on:click={getRecommendations}>Generar lista de canciones</button>
     {:else}
         <button class="mt-5 w-full bg-red-700 rounded p-3 text-white tracking-widest uppercase font-semibold cursor-not-allowed">Agrega elementos para generar</button>
     {/if}

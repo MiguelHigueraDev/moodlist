@@ -5,7 +5,9 @@
 	import List from '../components/List.svelte';
 	import PeriodSelector from '../components/PeriodSelector.svelte';
   import OptionsMenu from '../components/OptionsMenu.svelte';
+  import Recommendations from '../components/Recommendations.svelte';
   import { timeRange, token, tokenExpired } from "../stores.js";
+
 
 	const artistMap = (item) => {
     item.uri = item.uri.replace(/^spotify:artist:/, '') + ":ar";
@@ -47,6 +49,7 @@
       <PeriodSelector text={'Tus 15 artistas más escuchados'} />
       <List collectionType="artists" collectionMap={artistMap} />
       <OptionsMenu />
+      <Recommendations />
     {:else}
       <h1 class="text-xl text-red-400 text-center">Error. Por favor recarga la página e inicia sesión nuevamente.</h1>
     {/if}

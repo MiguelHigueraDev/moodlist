@@ -24,4 +24,6 @@ export const timeRange = writable('short_term');
 export const selectedArtists = writable([]);
 export const selectedTracks = writable([]);
 
+export const recommendations = writable([]);
+
 export const tokenExpired = writable(false);

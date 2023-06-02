@@ -16,7 +16,7 @@
     }
 
     const url = new URL("https://accounts.spotify.com/authorize?");
-    const scope = "user-read-private user-read-email user-top-read";
+    const scope = "user-read-private user-read-email user-top-read user-library-modify";
     const state = generateRandomString(16);
     let rememberMe = true;
 

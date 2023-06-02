@@ -37,8 +37,6 @@
                         addTrack(finalUri, name, artist_name, art)
                     }
                 }
-                //if (type == "artist") addArtist(finalUri, name, art)
-                //if (type == "track") addTrack(finalUri, name, artist_name, art)
             }
         }
 
@@ -51,7 +49,6 @@
     }
 
     const addTrack = (uri, name, artistName, art) => {
-        //if($selectedTracks.some(obj => obj["uri" === uri])) return
         $selectedTracks = [...$selectedTracks, {
             uri: uri,
             name: name,
