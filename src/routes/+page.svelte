@@ -34,14 +34,14 @@
 </script>
 
 <main>
-	<Header />
 	<Login />
 	{#key $timeRange}
 		{#key $collectionSize}
 			{#if $token}
-			<div class="mt-10 ml-10">
-				<h1 class="text-left text-white font-black text-2xl sm:text-4xl md:text-5xl">
-					Selecciona un máximo de 5 elementos (canciones y/o artistas)
+			<Header />
+			<div class="mt-4 px-10">
+				<h1 class="text-left p-4 text-white font-black text-2xl sm:text-4xl md:text-5xl">
+					Selecciona un máximo de 5 elementos
 				</h1>
 			</div>
 			<PeriodSelector firstText={'Tus '} lastText=" canciones más escuchadas" />
@@ -51,9 +51,9 @@
 			<OptionsMenu />
 			<Recommendations />
 		{:else}
-			<h1 class="text-xl text-red-400 text-center">
+			<!--<h1 class="text-xl text-red-400 text-center">
 				Error. Por favor recarga la página e inicia sesión nuevamente.
-			</h1>
+			</h1>-->
 		{/if}
 		{/key}
 	{/key}
