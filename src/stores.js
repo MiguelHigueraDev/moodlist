@@ -16,10 +16,11 @@ export const token = readable(null, function start(set) {
 });
 
 export const appUrl = readable(null, function start(set){
-    set("http://localhost:5173");
+    set("https://moodlist.vercel.app/")
 });
 
 export const timeRange = writable('short_term');
+export const collectionSize = writable(15);
 
 export const selectedArtists = writable([]);
 export const selectedTracks = writable([]);

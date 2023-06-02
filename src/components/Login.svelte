@@ -63,7 +63,7 @@
 
 {#if $tokenExpired}
 <section class="expired-token">
-    <p>Expiró el token. Por favor cierra tu sesión y entra nuevamente.</p>
+    <!--<p>Expiró el token. Por favor cierra tu sesión y entra nuevamente.</p>-->
 </section>
 {/if}
 
