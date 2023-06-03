@@ -61,14 +61,16 @@
         // Create search string
         const accessToken = $token
         const url = new URL(`https://api.spotify.com/v1/recommendations?`)
-        const params = new URLSearchParams({
+        let params = new URLSearchParams({
             seed_artists: artists,
             seed_tracks: tracks,
-            target_energy: en,
-            target_valence: va,
-            target_danceability: da,
-            target_popularity: popularity
         })
+
+        // Add search parameters if they are not disabled
+        if(useEnergy) params.append("target_energy", en)
+        if(useValence) params.append("target_valence", va)
+        if(useDanceability) params.append("target_danceability", da)
+        if(usePopularity) params.append("target_popularity", popularity)
 
         if (accessToken) {
             const res = await fetch(url + params, {
