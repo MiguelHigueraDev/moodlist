@@ -23,7 +23,7 @@
         artistName = song.artists[0].name
         songUrl = song.preview_url
         songTime = 0
-        pausedSong = true
+        pausedSong = false
     }
 
     const showError = () => {
@@ -100,7 +100,7 @@
     
 </div>
 
-<AudioPlayer isVisible={isVisible} songName={songName} artistName={artistName} songUrl={songUrl} time={songTime} />
+<AudioPlayer isVisible={isVisible} songName={songName} artistName={artistName} songUrl={songUrl} time={songTime} paused={pausedSong} />
 
 <button class="fixed bottom-[20px] left-[20px] p-4 rounded-sm shadow-md z-50 max-w-[300px] md:max-w-[400px] bg-green-400" on:click={toggleMenu}>
     🎵

@@ -8,8 +8,8 @@
 
 	export let time = 0
 	let duration = 0
-	let paused = true
-    let volume = 0.05
+	export let paused = true
+    let volume = 0.2
 
 	/**
 	 * @param {number} time
@@ -25,7 +25,7 @@
 </script>
 
 <div
-	class="fixed top-[750px] md:top-[600px] left-[20px] bg-white p-4 rounded-sm shadow-md z-50 w-[350px] md:w-[400px] overflow-auto {isVisible
+	class="fixed top-[600px] md:top-[600px] left-[20px] bg-white p-4 rounded-sm shadow-md z-50 w-[350px] md:w-[400px] overflow-auto {isVisible
 		? ''
 		: 'hidden'}"
 >
@@ -79,6 +79,10 @@
 				</div>
 			</div>
 		</div>
+        <div class="px-4">
+            <h3>Volumen</h3>
+            <input type="range" min="0.01" max="0.5" step="0.01" class="w-full accent-green-400" bind:value={volume}/>
+        </div>
 	{:else}
 		<h1>No hay nada sonando.</h1>
 	{/if}
