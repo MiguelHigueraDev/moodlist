@@ -110,7 +110,7 @@
         </div>
     </div>
     <input type="range" class="accent-purple-400 w-full" min="1" max="10" bind:value={energy} disabled={!useEnergy} />
-    <p>El nivel de energía deseado de las canciones, es decir, los niveles de intensidad y actividad que se pueden percibir en la canción.</p>
+    <p>Los niveles de intensidad y actividad que se pueden percibir en la canción.</p>
 
     <div class="flex justify-between mt-2">
         <h2 class="font-semibold">Positividad <span class="text-sm text-gray-700">{valence}/10</span></h2>
@@ -120,7 +120,7 @@
         </div>
     </div>
     <input type="range" class="accent-green-400 w-full" min="1" max="10" bind:value={valence} disabled={!useValence} />
-    <p>El nivel de positividad deseado de las canciones. Un nivel alto entregará canciones que muestran emociones más positivas (alegría, euforia, etc.), y un nivel bajo emociones negativas (tristeza, ira, etc.) </p>
+    <p> Un nivel alto entregará canciones que muestran emociones más positivas (alegría, euforia, etc.), y un nivel bajo entregará emociones negativas (tristeza, ira, etc.) </p>
 
     <div class="flex justify-between mt-2">
         <h2 class="mt-2 font-semibold">Popularidad <span class="text-sm text-gray-700">{popularity}/100</span></h2>
@@ -130,7 +130,7 @@
         </div>
     </div>
     <input type="range" class="accent-yellow-400 w-full" min="10" max="100" bind:value={popularity} disabled={!usePopularity} />
-    <p>El nivel de popularidad deseado de las canciones, es decir, que tanto se escuchan. <span class="font-semibold text-sm">Ten en cuenta que valores muy bajos de esta opción pueden no entregar ningún resultado.</span></p>
+    <p>Que tanto se escuchan las canciones recomendadas. <span class="font-semibold text-sm">Ten en cuenta que valores muy bajos de esta opción pueden no entregar ningún resultado.</span></p>
 
     <div class="flex justify-between mt-2">
         <h2 class="mt-2 font-semibold">Bailabilidad <span class="text-sm text-gray-700">{danceability}/10</span></h2>
