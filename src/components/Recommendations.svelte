@@ -72,7 +72,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" on:click={toggleMenu} style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div class="fixed top-[20px] left-[20px] bg-white p-4 rounded-sm shadow-md z-40 max-w-[350px] md:max-w-[450px] max-h-[550px] 2xl:max-h-[850px] overflow-auto {isVisible ? '' : 'hidden'}">
+<div class="fixed top-[20px] left-[20px] bg-white p-4 rounded-sm shadow-md z-40 max-w-[350px] md:max-w-[450px] max-h-[550px] overflow-auto {isVisible ? '' : 'hidden'}">
     <div class="overflow-hidden">
         <h1 class="text-center text-xl tracking-wider font-semibold mb-3">Recomendaciones para ti</h1>
     </div>

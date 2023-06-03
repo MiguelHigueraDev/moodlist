@@ -25,7 +25,7 @@
 </script>
 
 <div
-	class="fixed top-[750px] md:top-[600px] 2xl:top-[900px] left-[20px] bg-white p-4 rounded-sm shadow-md z-50 w-[350px] md:w-[400px] overflow-auto {isVisible
+	class="fixed top-[750px] md:top-[600px] left-[20px] bg-white p-4 rounded-sm shadow-md z-50 w-[350px] md:w-[400px] overflow-auto {isVisible
 		? ''
 		: 'hidden'}"
 >
