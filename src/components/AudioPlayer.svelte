@@ -30,8 +30,6 @@
 		: 'hidden'}"
 >
 	{#if songName != ''}
-		<h2>Ahora está sonando</h2>
-
 		<div class="player" class:paused>
 			<audio src={songUrl} bind:currentTime={time} bind:duration bind:paused bind:volume on:ended={() => {
                 time = 0;
@@ -81,7 +79,7 @@
 		</div>
         <div class="px-4">
             <h3>Volumen</h3>
-            <input type="range" min="0.01" max="0.5" step="0.01" class="w-full accent-green-400" bind:value={volume}/>
+            <input type="range" min="0.01" max="0.8" step="0.01" class="w-full accent-green-400" bind:value={volume}/>
         </div>
 	{:else}
 		<h1>No hay nada sonando.</h1>

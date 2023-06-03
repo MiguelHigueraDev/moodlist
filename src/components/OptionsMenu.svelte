@@ -150,7 +150,7 @@
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="flex flex-row gap-3 items-center mt-2 hover:bg-red-400 rounded hover:cursor-pointer" on:click={removeArtist(artist.uri)}>
                     <img class="w-14 h-14 object-contain" src={artist.art} alt={artist.name} />
-                    <li>{artist.name}</li>
+                    <li class="text-black font-semibold">{artist.name}</li>
                 </div>
             {/each}
         </ul>
@@ -163,16 +163,19 @@
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="flex flex-row gap-3 items-center mt-2 hover:bg-red-400 rounded hover:cursor-pointer" on:click={removeTrack(track.uri)}>
                     <img class="w-14 h-14 object-contain" src={track.art} alt={track.name} />
-                    <li>{track.artistName} - {track.name}</li>
+                    <div class="flex flex-col w-[250px]">
+                        <p class="text-gray-600 font-semibold text-sm">{track.artistName}</p>
+                        <p class="text-black font-semibold">{track.name}</p>
+                    </div>
                 </div>
             {/each}
         </ul>
     {/if}
 
     {#if $selectedTracks.length > 0 || $selectedArtists.length > 0}
-        <button class="mt-5 w-full bg-slate-700 hover:bg-slate-600 rounded p-3 text-white tracking-widest uppercase font-semibold" on:click={getRecommendations}>Generar lista de canciones</button>
+        <button class="mt-5 w-full bg-slate-700 hover:bg-slate-600 rounded p-3 text-white tracking-widest uppercase font-semibold" on:click={getRecommendations}>Obtener Recomendaciones</button>
     {:else}
-        <button class="mt-5 w-full bg-red-700 rounded p-3 text-white tracking-widest uppercase font-semibold cursor-not-allowed">Agrega elementos para generar</button>
+        <button class="mt-5 w-full bg-red-700 rounded p-3 text-white tracking-widest uppercase font-semibold cursor-not-allowed">Agrega al menos 1 elemento</button>
     {/if}
     
 </div>
