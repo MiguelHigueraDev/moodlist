@@ -1,11 +1,10 @@
 <script>
     //@ts-nocheck
-    import { recommendations } from '../stores'
+    import { recommendations, showOptions, showRecommendations } from '../stores'
     import { toast } from '@zerodevx/svelte-toast'
     import { fade } from 'svelte/transition'
     import AudioPlayer from './AudioPlayer.svelte';
 
-    let isVisible = false
     let songName = ""
     let artistName = ""
     let songUrl = ""
@@ -19,7 +18,14 @@
     let audioPlayers = []
 
     const toggleMenu = () => {
-        isVisible = !isVisible
+        // Hide the other menu if the user is browsing in a small width device.
+        if (screenWidth < 900) $showOptions = false
+        $showRecommendations = !$showRecommendations
+    }
+
+    const hideAllMenus = () => {
+        $showOptions = false
+        $showRecommendations = false
     }
 
     const playAudio = (song) => {
@@ -41,9 +47,9 @@
 
 {#if $recommendations != "" && $recommendations != null}
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" on:click={toggleMenu} style="background-color: rgba(0, 0, 0, 0.5)"></div>
+<div class="fixed top-0 left-0 w-full h-full z-30 {$showRecommendations ? '' : 'hidden'}" on:click={hideAllMenus} style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div style="width: {screenWidth-35}px; height: {screenHeight-290}px;" class="fixed top-[20px] left-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[400px] overflow-auto {isVisible ? '' : 'hidden'}">
+<div style="width: {screenWidth-35}px; height: {screenHeight-290}px;" class="fixed top-[20px] left-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[400px] overflow-auto {$showRecommendations ? '' : 'hidden'}">
     <div class="overflow-hidden">
         <h1 class="text-center text-xl tracking-wider font-semibold mb-3">{$recommendations.length} recomendaciones encontradas</h1>
     </div>
@@ -71,7 +77,7 @@
     
 </div>
 
-<AudioPlayer isVisible={isVisible} songName={songName} artistName={artistName} songUrl={songUrl} songUri={songUri} time={songTime} paused={pausedSong} />
+<AudioPlayer isVisible={$showRecommendations} songName={songName} artistName={artistName} songUrl={songUrl} songUri={songUri} time={songTime} paused={pausedSong} />
 
 <button class="fixed bottom-[20px] left-[20px] p-4 rounded-lg shadow-md z-50 max-w-[300px] md:max-w-[400px] bg-green-400" on:click={toggleMenu}>
     🎵

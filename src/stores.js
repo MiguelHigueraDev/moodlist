@@ -27,4 +27,7 @@ export const selectedTracks = writable([]);
 
 export const recommendations = writable([]);
 
+export const showOptions = writable(false);
+export const showRecommendations = writable(false);
+
 export const tokenExpired = writable(false);

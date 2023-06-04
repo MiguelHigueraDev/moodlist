@@ -1,8 +1,6 @@
 <script>
     //@ts-nocheck
-    import { selectedTracks, selectedArtists, token, tokenExpired, recommendations } from "../stores";
-
-    let isVisible = false
+    import { selectedTracks, selectedArtists, token, tokenExpired, recommendations, showOptions, showRecommendations } from "../stores";
 
     let energy = 5
     let valence = 5
@@ -33,7 +31,14 @@
     }
 
     const toggleMenu = () => {
-        isVisible = !isVisible
+        // Hide the other menu if the user is browsing in a small width device.
+        if (screenWidth < 900) $showRecommendations = false
+        $showOptions = !$showOptions
+    }
+
+    const hideAllMenus = () => {
+        $showOptions = false
+        $showRecommendations = false
     }
 
     const removeClasses = (uri) => {
@@ -152,9 +157,9 @@
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
-<div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" on:click={toggleMenu} style="background-color: rgba(0, 0, 0, 0.5)"></div>
+<div class="fixed top-0 left-0 w-full h-full z-30 {$showOptions ? '' : 'hidden'}" on:click={hideAllMenus} style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div style="width: {screenWidth-35}px; max-height: {screenHeight-120}px;" class="fixed top-[20px] right-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[400px] overflow-auto {isVisible ? '' : 'hidden'}">
+<div style="width: {screenWidth-35}px; max-height: {screenHeight-120}px;" class="fixed top-[20px] right-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[400px] overflow-auto {$showOptions ? '' : 'hidden'}">
     <h1 class="text-center text-xl tracking-wider font-semibold ">Parámetros</h1>
 
     <div class="flex justify-between mt-2">

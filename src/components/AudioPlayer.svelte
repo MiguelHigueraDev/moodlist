@@ -71,13 +71,14 @@
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
+{#if songName != ''}
 <div
 	style="width: {screenWidth-35}px; max-height: 170px; top: {screenHeight-250}px;"
 	class="fixed left-[20px] bg-white p-4 rounded-lg shadow-md z-50 max-w-[400px] overflow-auto {isVisible
 		? ''
 		: 'hidden'}"
 >
-	{#if songName != ''}
+
 		<div class="player-container flex">
 			<div class="player w-full" class:paused>
 				<audio
@@ -159,10 +160,8 @@
 				bind:value={volume}
 			/>
 		</div>
-	{:else}
-		<h1>No hay nada sonando.</h1>
-	{/if}
 </div>
+{/if}
 
 <style>
 	.player {
