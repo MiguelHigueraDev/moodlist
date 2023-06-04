@@ -8,6 +8,9 @@
     export let collectionType, collectionMap;
 
     let tiles = []
+    let mobileTiles = []
+
+    let screenWidth
 
     // Handle list selections
 
@@ -25,11 +28,13 @@
                     if (check != -1) {
                         $selectedArtists.splice(check, 1)
                         $selectedArtists = $selectedArtists
-                        switchColor(finalUri, false)
+                        if(screenWidth > 568) switchColor(finalUri, false)
+                        if(screenWidth < 569) switchMobileColor(finalUri, false)
                     } else {
                         if(artists.length + tracks.length > 4) return toast.push('¡Sólo puedes agregar un máximo de 5 elementos!')
                         addArtist(finalUri, name, art)
-                        switchColor(finalUri, true)
+                        if(screenWidth > 568) switchColor(finalUri, true)
+                        if(screenWidth < 569) switchMobileColor(finalUri, true)
                     }
                 }
 
@@ -38,11 +43,13 @@
                     if (check != -1) {
                         $selectedTracks.splice(check, 1)
                         $selectedTracks = $selectedTracks
-                        switchColor(finalUri, false)
+                        if(screenWidth > 568) switchColor(finalUri, false)
+                        if(screenWidth < 569) switchMobileColor(finalUri, false)
                     } else {
                         if(artists.length + tracks.length > 4) return toast.push('¡Sólo puedes agregar un máximo de 5 elementos!')
                         addTrack(finalUri, name, artist_name, art)
-                        switchColor(finalUri, true)
+                        if(screenWidth > 568) switchColor(finalUri, true)
+                        if(screenWidth < 569) switchMobileColor(finalUri, true)
                     }
                 }
             }
@@ -55,6 +62,16 @@
         } else {
             tiles[uri].classList.add("bg-slate-700", "hover:bg-slate-600")
             tiles[uri].classList.remove("bg-emerald-600", "hover:bg-red-400")
+        }
+    }
+
+    const switchMobileColor = (uri, enable) => {
+        if(enable) {
+            mobileTiles[uri].classList.add("bg-emerald-600", "hover:bg-red-400")
+            mobileTiles[uri].classList.remove("bg-slate-700", "hover:bg-slate-600")
+        } else {
+            mobileTiles[uri].classList.add("bg-slate-700", "hover:bg-slate-600")
+            mobileTiles[uri].classList.remove("bg-emerald-600", "hover:bg-red-400")
         }
     }
 
@@ -105,25 +122,54 @@
     onMount(getCollection);
 
 </script>
+
+<svelte:window bind:innerWidth={screenWidth} />
+
 <div class="px-10 py-5">
-    <ul class="grid gap-2 grid-cols-fluid" style="grid-auto-rows: 1fr;"> 
-        {#if collection}
-            {#each collection as {name, art, artist_name, info, link, uri}, i}
-            <!-- svelte-ignore a11y-click-events-have-key-events -->
-            <li on:click={addItem(uri, name, artist_name, art)} transition:fade>
-                <div class="flex flex-col items-center rounded p-6 m-4 h-[250px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600 { tiles.includes(uri.slice(0, -3)) ? 'test' : 'fail' } " bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
-                    <img src={art} alt={name} class="w-[150px] h-[150px] object-cover" />
-                    {#if artist_name != undefined && artist_name != null}
-                        <div class="flex flex-col">
+    {#if screenWidth > 568}
+        <ul class="grid gap-2 grid-cols-fluid" style="grid-auto-rows: 1fr;">
+            {#if collection}
+                {#each collection as {name, art, artist_name, info, link, uri}, i}
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <li on:click={addItem(uri, name, artist_name, art)} transition:fade>
+                    <div class="flex flex-col items-center rounded p-6 m-4 h-[250px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600" bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
+                        <img src={art} alt={name} class="w-[150px] h-[150px] object-cover" />
+                        {#if artist_name != undefined && artist_name != null}
+                            <div class="flex flex-col">
+                                <p class="text-gray-300 font-semibold text-xs text-center mt-2">{artist_name}</p>
+                                <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
+                            </div>
+                        {:else}
+                            <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
+                        {/if}
+                    </div>
+                </li>
+                {/each}
+            {/if}
+        </ul>
+    {:else}
+        <ul class="flex flex-col gap-10">
+            {#if collection}
+                {#each collection as {name, art, artist_name, info, link, uri}, i}
+                <!-- svelte-ignore a11y-click-events-have-key-events -->
+                <li on:click={addItem(uri, name, artist_name, art)} transition:fade>
+                    <div class="flex flex-row gap-2 rounded-lg bg-slate-700 hover:bg-slate-600 hover:cursor-pointer p-4" bind:this={mobileTiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
+                        <img src={art} alt={name} class="w-[50px]"/>
+                        {#if artist_name != undefined && artist_name != null}
+                        <div class="flex flex-col w-full">
                             <p class="text-gray-300 font-semibold text-xs text-center mt-2">{artist_name}</p>
                             <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
                         </div>
-                    {:else}
-                        <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
-                    {/if}
-                </div>
-            </li>
-            {/each}
-        {/if}
-    </ul>
+                        {:else}
+                        <div class="flex flex-col w-full">
+                            <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
+                        </div>
+                        {/if}
+                    </div>
+                </li>
+                {/each}
+            {/if}
+        </ul>
+    {/if}
+    
 </div>
