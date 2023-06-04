@@ -72,7 +72,7 @@
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
 <div
-	style="width: {screenWidth-35}px; max-height: 170px; top: {screenHeight-240}px;"
+	style="width: {screenWidth-35}px; max-height: 170px; top: {screenHeight-250}px;"
 	class="fixed left-[20px] bg-white p-4 rounded-lg shadow-md z-50 max-w-[400px] overflow-auto {isVisible
 		? ''
 		: 'hidden'}"
