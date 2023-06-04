@@ -111,12 +111,15 @@
             {#each collection as {name, art, artist_name, info, link, uri}, i}
             <!-- svelte-ignore a11y-click-events-have-key-events -->
             <li on:click={addItem(uri, name, artist_name, art)} transition:fade>
-                <div class="flex flex-col items-center rounded p-6 m-4 h-[230px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600 { tiles.includes(uri.slice(0, -3)) ? 'test' : 'fail' } " bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
+                <div class="flex flex-col items-center rounded p-6 m-4 h-[250px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600 { tiles.includes(uri.slice(0, -3)) ? 'test' : 'fail' } " bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
                     <img src={art} alt={name} class="w-[150px] h-[150px] object-cover" />
                     {#if artist_name != undefined && artist_name != null}
-                        <p class="text-white text-xs text-center mt-2">{artist_name} - {name}</p>
+                        <div class="flex flex-col">
+                            <p class="text-gray-300 font-semibold text-xs text-center mt-2">{artist_name}</p>
+                            <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
+                        </div>
                     {:else}
-                        <p class="text-white text-xs text-center mt-2">{name}</p>
+                        <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
                     {/if}
                 </div>
             </li>

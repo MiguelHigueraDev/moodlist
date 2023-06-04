@@ -97,6 +97,56 @@
         return (num - 1) / 9 * 0.9 + 0.1
     }
 
+    // Convert all numeric values to words.
+    function mapDanceability(da) {
+        if(da == 1) return "extremadamente rígido, cero coordinación, arítmico"
+        if(da > 1 && da < 4) return "rígido, robótico"
+        if(da == 4) return "tieso, torpe, poco coordinado"
+        if(da == 5) return "quizás bailable"
+        if(da > 5 && da < 8) return "rítmico, coordinado"
+        if(da == 8) return "melódico, fluido, rítmico"
+        if(da == 9) return "pegajoso, movido, bailable"
+        if(da == 10) return "muy movido, energético, contagioso, de discoteca"
+        if(da < 0 || da > 10) return "error... esto no debería pasar."
+    }
+
+    function mapEnergy(en) {
+        if(en == 1) return "letárgico, sin vida, drenado"
+        if(en > 1 && en < 4) return "cansado, poco entusiasmante"
+        if(en == 4) return "poco inspirador, pasivo"
+        if(en == 5) return "meh"
+        if(en > 5 && en < 8) return "vibrante, entusiasmante"
+        if(en == 8) return "poderoso, dinámico"
+        if(en == 9) return "energético, vivo, intenso"
+        if(en == 10) return "electrizante, envigorante, frenético, de alto octanaje"
+        if(en < 0 || en > 10) return "error... esto no debería pasar."
+    }
+
+    function mapPopularity(po) {
+        if(po == 10) return "probablemente menos de 5000 reproducciones en el mundo, o canción desconocida de un artista popular"
+        if(po > 10 && po < 40) return "probablemente seas el único que escucha esto en tu ciudad"
+        if(po >= 40 && po < 50) return "poco popular"
+        if(po >= 50 && po < 60) return "término medio"
+        if(po >= 60 && po < 80) return "conocido por muchos, especialmente localmente"
+        if(po >= 80 && po < 90) return "popular"
+        if(po >= 90 && po < 97) return "top de listas"
+        if(po >= 97) return "probablemente la conoces, o algún amigo la conoce"
+        if(po < 10 || po > 100) return "error... esto no debería pasar."
+    }
+
+    function mapValence(va) {
+        if(va == 1) return "miserable, trágico | iracundo"
+        if(va > 1 && va < 3) return "desesperado, deprimido | enojado"
+        if(va == 3) return "melancólico, desolado | irritado"
+        if(va == 4) return "triste, oscuro | molesto"
+        if(va == 5) return "pensativo"
+        if(va > 5 && va < 8) return "jovial"
+        if(va == 8) return "alegre, contento"
+        if(va == 9) return "feliz, animado, radiante"
+        if(va == 10) return "exhuberante, eufórico, dichoso, en las nubes"
+        if(va < 0 || va > 10) return "error... esto no debería pasar."
+    }
+
 </script>
 
 <svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
@@ -115,7 +165,10 @@
         </div>
     </div>
     <input type="range" class="accent-purple-400 w-full" min="1" max="10" bind:value={energy} disabled={!useEnergy} />
-    <p>Los niveles de intensidad y actividad que se pueden percibir en la canción.</p>
+    {#if useEnergy}
+    <p class="text-sm font-bold">{mapEnergy(energy)}</p>
+    {/if}
+
 
     <div class="flex justify-between mt-2">
         <h2 class="font-semibold">Positividad <span class="text-sm text-gray-700">{valence}/10</span></h2>
@@ -125,17 +178,9 @@
         </div>
     </div>
     <input type="range" class="accent-green-400 w-full" min="1" max="10" bind:value={valence} disabled={!useValence} />
-    <p> Un nivel alto entregará canciones que muestran emociones más positivas (alegría, euforia, etc.), y un nivel bajo entregará emociones negativas (tristeza, ira, etc.) </p>
-
-    <div class="flex justify-between mt-2">
-        <h2 class="mt-2 font-semibold">Popularidad <span class="text-sm text-gray-700">{popularity}/100</span></h2>
-        <div>
-            <label for="use-popularity">Usar</label>
-            <input type="checkbox" id="use-popularity" bind:checked={usePopularity} />
-        </div>
-    </div>
-    <input type="range" class="accent-yellow-400 w-full" min="10" max="100" bind:value={popularity} disabled={!usePopularity} />
-    <p>Que tanto se escuchan las canciones recomendadas. <span class="font-semibold text-sm">Ten en cuenta que valores muy bajos de esta opción pueden no entregar ningún resultado.</span></p>
+    {#if useValence}
+    <p class="text-sm font-bold">{mapValence(valence)}</p>
+    {/if}
 
     <div class="flex justify-between mt-2">
         <h2 class="mt-2 font-semibold">Bailabilidad <span class="text-sm text-gray-700">{danceability}/10</span></h2>
@@ -145,8 +190,21 @@
         </div>
     </div>
     <input type="range" class="accent-pink-400 w-full" min="1" max="10" bind:value={danceability} disabled={!useDanceability} />
-    <p>Que tan bailables serán las canciones seleccionadas.</p>
+    {#if useDanceability}
+    <p class="text-sm font-bold">{mapDanceability(danceability)}</p>
+    {/if}
 
+    <div class="flex justify-between mt-2">
+        <h2 class="mt-2 font-semibold">Popularidad <span class="text-sm text-gray-700">{popularity}/100</span></h2>
+        <div>
+            <label for="use-popularity">Usar</label>
+            <input type="checkbox" id="use-popularity" bind:checked={usePopularity} />
+        </div>
+    </div>
+    <input type="range" class="accent-yellow-400 w-full" min="10" max="100" bind:value={popularity} disabled={!usePopularity} />
+    {#if usePopularity}
+    <p class="text-sm font-bold">{mapPopularity(popularity)}</p>
+    {/if}
 
     {#if $selectedArtists.length > 0}
         <h1 class="text-center text-xl tracking-wider font-semibold mt-5 mb-3">Artistas seleccionados</h1>
