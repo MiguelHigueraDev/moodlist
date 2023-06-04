@@ -91,6 +91,9 @@
                 const data = await res.json();
                 //console.log(data.tracks)
                 $recommendations = data.tracks
+                // If the device is small hide the parameters panel.
+                if (screenWidth < 900) $showOptions = false
+                $showRecommendations = true
             } else {
                 tokenExpired.set(true)
             }
