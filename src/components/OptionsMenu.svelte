@@ -99,8 +99,8 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" on:click={toggleMenu} style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div class="fixed top-[20px] right-[20px] bg-white p-4 rounded-sm shadow-md z-40 max-w-[350px] md:max-w-[400px] max-h-[700px] overflow-auto {isVisible ? '' : 'hidden'}">
-    <h1 class="text-center text-xl tracking-wider font-semibold ">Parámetros de la lista personalizada</h1>
+<div class="fixed top-[20px] right-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[350px] md:max-w-[400px] max-h-[700px] overflow-auto {isVisible ? '' : 'hidden'}">
+    <h1 class="text-center text-xl tracking-wider font-semibold ">Parámetros</h1>
 
     <div class="flex justify-between mt-2">
         <h2 class="font-semibold">Energía <span class="text-sm text-gray-700">{energy}/10</span></h2>
@@ -180,7 +180,7 @@
     
 </div>
 
-<button class="fixed bottom-[20px] right-[20px] bg-white p-4 rounded-sm shadow-md z-50 max-w-[300px] md:max-w-[400px]" on:click={toggleMenu}>
+<button class="fixed bottom-[20px] right-[20px] bg-white p-4 rounded-lg shadow-md z-50 max-w-[300px] md:max-w-[400px]" on:click={toggleMenu}>
     Menú ({$selectedTracks.length + $selectedArtists.length}/5)
 </button>
 

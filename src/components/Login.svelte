@@ -58,7 +58,7 @@
                 </div>
             </div>
             <div id="privacy" class="mt-5 text-center text-white font-semibold text-sm">
-                <h2>Tu información no se guardará en ningún lugar. Solamente necesito acceso a tus datos para cargar tus canciones.</h2>
+                <h2>Tu información no saldrá de tu dispositivo. Solamente necesito acceso a tus datos para cargar tus gustos musicales de forma local.</h2>
             </div>
         </div>
     </div>
