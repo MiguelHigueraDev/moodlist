@@ -50,7 +50,7 @@
 			<List collectionType="artists" collectionMap={artistMap} />
 			<OptionsMenu />
 			<Recommendations />
-			<p class="text-white mt-2 mb-[100px] xl:mb-10 px-10 text-center text-md" id="disclaimer">Toda la información de canciones e imágenes es otorgada por Spotify y estas son propiedad de sus respectivos dueños.</p>
+			<p class="text-white mt-2 mb-2 px-10 text-center text-md" id="disclaimer">Toda la información de canciones e imágenes es otorgada por Spotify y estas son propiedad de sus respectivos dueños.</p>
 			<p class="text-white mt-2 mb-[100px] xl:mb-10 px-10 text-center text-md" id="disclaimer">Este sitio no está afiliado de ninguna forma con Spotify.</p>
 		{:else}
 			<!--<h1 class="text-xl text-red-400 text-center">
