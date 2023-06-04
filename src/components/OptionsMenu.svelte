@@ -14,6 +14,9 @@
     let usePopularity = false
     let useDanceability = false
 
+    let screenWidth
+    let screenHeight
+
     const removeArtist = (uri) => {
         const index = $selectedArtists.findIndex(item => item.uri == uri)
         $selectedArtists.splice(index, 1)
@@ -96,10 +99,12 @@
 
 </script>
 
+<svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
+
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" on:click={toggleMenu} style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div class="fixed top-[20px] right-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[350px] md:max-w-[400px] max-h-[700px] overflow-auto {isVisible ? '' : 'hidden'}">
+<div style="width: {screenWidth-35}px; max-height: {screenHeight-120}px;" class="fixed top-[20px] right-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[400px] overflow-auto {isVisible ? '' : 'hidden'}">
     <h1 class="text-center text-xl tracking-wider font-semibold ">Parámetros</h1>
 
     <div class="flex justify-between mt-2">

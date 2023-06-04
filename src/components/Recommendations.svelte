@@ -13,6 +13,9 @@
     let songTime = 0
     let pausedSong = true
 
+    let screenWidth
+    let screenHeight
+
     let audioPlayers = []
 
     const toggleMenu = () => {
@@ -32,18 +35,19 @@
     const showError = () => {
         toast.push('La vista previa está desactivada para esta canción.')
     }
-
 </script>
+
+<svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
 
 {#if $recommendations != "" && $recommendations != null}
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <div class="fixed top-0 left-0 w-full h-full z-30 {isVisible ? '' : 'hidden'}" on:click={toggleMenu} style="background-color: rgba(0, 0, 0, 0.5)"></div>
 
-<div class="fixed top-[20px] left-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[350px] md:max-w-[450px] max-h-[550px] overflow-auto {isVisible ? '' : 'hidden'}">
+<div style="width: {screenWidth-35}px; height: {screenHeight-290}px;" class="fixed top-[20px] left-[20px] bg-white p-4 rounded-lg shadow-md z-40 max-w-[400px] overflow-auto {isVisible ? '' : 'hidden'}">
     <div class="overflow-hidden">
         <h1 class="text-center text-xl tracking-wider font-semibold mb-3">{$recommendations.length} recomendaciones encontradas</h1>
     </div>
-    
+
     {#key $recommendations}
         {#each $recommendations as rec, i}
         <div class="flex flex-row gap-3 items-center mt-3 rounded" transition:fade>

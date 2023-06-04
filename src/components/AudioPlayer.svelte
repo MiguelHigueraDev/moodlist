@@ -14,6 +14,9 @@
 	export let paused = true;
 	let volume = 0.2;
 
+	let screenWidth
+    let screenHeight
+
 	/**
 	 * @param {number} time
 	 */
@@ -66,8 +69,11 @@
 
 </script>
 
+<svelte:window bind:innerWidth={screenWidth} bind:innerHeight={screenHeight} />
+
 <div
-	class="fixed top-[600px] md:top-[600px] left-[20px] bg-white p-4 rounded-lg shadow-md z-50 w-[350px] md:w-[400px] overflow-auto {isVisible
+	style="width: {screenWidth-35}px; max-height: 170px; top: {screenHeight-240}px;"
+	class="fixed left-[20px] bg-white p-4 rounded-lg shadow-md z-50 max-w-[400px] overflow-auto {isVisible
 		? ''
 		: 'hidden'}"
 >
