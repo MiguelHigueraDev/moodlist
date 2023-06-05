@@ -15,6 +15,8 @@
     let screenWidth
     let screenHeight
 
+    let buttonCooldown = false
+
     const removeArtist = (uri) => {
         const index = $selectedArtists.findIndex(item => item.uri == uri)
         $selectedArtists.splice(index, 1)
@@ -50,6 +52,12 @@
     }
 
     async function getRecommendations() {
+        // Add cooldown so user doesn't spam the button
+        buttonCooldown = true
+        setTimeout(() => {
+            buttonCooldown = false
+        }, 5000)
+
         // First convert all parameters so they are valid
         const en = convertNumbers(energy)
         const va = convertNumbers(valence)
@@ -244,7 +252,7 @@
     {/if}
 
     {#if $selectedTracks.length > 0 || $selectedArtists.length > 0}
-        <button class="mt-5 w-full bg-slate-700 hover:bg-slate-600 rounded p-3 text-white tracking-widest uppercase font-semibold" on:click={getRecommendations}>Obtener Recomendaciones</button>
+        <button class="mt-5 w-full {buttonCooldown ? 'cursor-not-allowed' : 'cursor-pointer'} bg-slate-700 hover:bg-slate-600 rounded p-3 text-white tracking-widest uppercase font-semibold" disabled={buttonCooldown} on:click={getRecommendations}>{buttonCooldown ? 'Por favor espera...' : 'Obtener Recomendaciones'}</button>
     {:else}
         <button class="mt-5 w-full bg-red-700 rounded p-3 text-white tracking-widest uppercase font-semibold cursor-not-allowed">Agrega al menos 1 elemento</button>
     {/if}
