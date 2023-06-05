@@ -153,8 +153,8 @@
 			<h3>Volumen</h3>
 			<input
 				type="range"
-				min="0.01"
-				max="0.8"
+				min="0"
+				max="0.95"
 				step="0.01"
 				class="w-full accent-green-400"
 				bind:value={volume}
