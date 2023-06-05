@@ -7,7 +7,7 @@
     <div class="flex flex-col items-center gap-3">
         <h2 class="hidden sm:block text-left text-white font-black text-lg sm:text-2xl md:text-3xl">Con tecnología de</h2>
         <h2 class="block sm:hidden text-left text-white font-black text-md">Tecnología de</h2>
-        <img src={spotifyLogo} class="w-[100px] md:w-[200px]" alt="Logo de Spotify" />
+        <a href="https://spotify.com" target="_blank"><img src={spotifyLogo} class="w-[100px] md:w-[200px]" alt="Logo de Spotify" /></a>
     </div>
 
 </div>
