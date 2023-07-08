@@ -1,6 +1,7 @@
 <script>
     //@ts-nocheck
-    import { selectedTracks, selectedArtists, token, tokenExpired, recommendations, showOptions, showRecommendations } from "../stores";
+    import { selectedTracks, selectedArtists, token, 
+        tokenExpired, recommendations, showOptions, showRecommendations } from "../stores";
 
     let energy = 5
     let valence = 5
