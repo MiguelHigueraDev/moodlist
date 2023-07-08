@@ -232,7 +232,7 @@
             {#each $selectedArtists as artist}
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="flex flex-row items-center mt-2 z-10">
-                    <img class="w-14 h-14 object-contain mr-2" src={artist.art} alt={artist.name} />
+                    <img class="w-14 h-14 object-contain mr-4" src={artist.art} alt={artist.name} />
                     <div class="flex flex-col w-[250px]">
                         <li class="text-black font-semibold">{artist.name}</li>
                     </div>
@@ -250,7 +250,7 @@
             {#each $selectedTracks as track}
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <div class="flex flex-row items-center mt-2 z-10">
-                    <img class="w-14 h-14 object-contain mr-2" src={track.art} alt={track.name} />
+                    <img class="w-14 h-14 object-contain mr-4" src={track.art} alt={track.name} />
                     <div class="flex flex-col w-[250px]">
                         <p class="text-gray-600 font-semibold text-sm">{track.artistName}</p>
                         <p class="text-black font-semibold">{track.name}</p>
