@@ -100,7 +100,7 @@
 				/>
 				<div class="info">
 					<div>
-						<h2><span class="font-semibold break-words">{artistName}</span> - {songName}</h2>
+						<a href={"https://open.spotify.com/track/" + songUri} target="_blank"><h2><span class="font-semibold break-words">{artistName}</span> - {songName}</h2></a>
 					</div>
 					<div class="time">
 						<span>{format(time)}</span>

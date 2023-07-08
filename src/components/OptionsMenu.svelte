@@ -2,6 +2,9 @@
     //@ts-nocheck
     import { selectedTracks, selectedArtists, token, 
         tokenExpired, recommendations, showOptions, showRecommendations } from "../stores";
+    
+    import open from '$lib/assets/open-external-dark.svg'
+    import trash from '$lib/assets/trash.svg'
 
     let energy = 5
     let valence = 5
@@ -228,10 +231,15 @@
         <ul>
             {#each $selectedArtists as artist}
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div class="flex flex-row gap-3 items-center mt-2 hover:bg-red-400 rounded hover:cursor-pointer" on:click={removeArtist(artist.uri)}>
-                    <img class="w-14 h-14 object-contain" src={artist.art} alt={artist.name} />
-                    <li class="text-black font-semibold">{artist.name}</li>
+                <div class="flex flex-row items-center mt-2 z-10">
+                    <img class="w-14 h-14 object-contain mr-2" src={artist.art} alt={artist.name} />
+                    <div class="flex flex-col w-[250px]">
+                        <li class="text-black font-semibold">{artist.name}</li>
+                    </div>
+                    <button on:click={removeArtist(artist.uri)} class="float-right relative top-0 right-2 z-50 mr-1"><img src={trash} width="27px" height="27px" alt={"Eliminar"}/></button>
+                <a href="{"https://open.spotify.com/artist/" + artist.uri}" target="_blank" class="float-right relative top-0 right-2 z-50"><img src={open} width="30px" height="30px" alt="Abrir en otra ventana" /></a>
                 </div>
+                
             {/each}
         </ul>
     {/if}
@@ -241,19 +249,21 @@
         <ul>
             {#each $selectedTracks as track}
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
-                <div class="flex flex-row gap-3 items-center mt-2 hover:bg-red-400 rounded hover:cursor-pointer" on:click={removeTrack(track.uri)}>
-                    <img class="w-14 h-14 object-contain" src={track.art} alt={track.name} />
+                <div class="flex flex-row items-center mt-2 z-10">
+                    <img class="w-14 h-14 object-contain mr-2" src={track.art} alt={track.name} />
                     <div class="flex flex-col w-[250px]">
                         <p class="text-gray-600 font-semibold text-sm">{track.artistName}</p>
                         <p class="text-black font-semibold">{track.name}</p>
                     </div>
+                    <button on:click={removeTrack(track.uri)} class="float-right relative top-0 right-2 z-50 mr-1"><img src={trash} width="27px" height="27px" alt={"Eliminar"}/></button>
+                    <a href="{"https://open.spotify.com/track/" + track.uri}" target="_blank" class="float-right relative top-0 right-2 z-50"><img src={open} width="30px" height="30px" alt="Abrir en otra ventana" /></a>
                 </div>
             {/each}
         </ul>
     {/if}
 
     {#if $selectedTracks.length > 0 || $selectedArtists.length > 0}
-        <button class="mt-5 w-full {buttonCooldown ? 'cursor-not-allowed' : 'cursor-pointer'} bg-slate-700 hover:bg-slate-600 rounded p-3 text-white tracking-widest uppercase font-semibold" disabled={buttonCooldown} on:click={getRecommendations}>{buttonCooldown ? 'Por favor espera...' : 'Obtener Recomendaciones'}</button>
+        <button class="mt-5 w-full {buttonCooldown ? 'cursor-not-allowed bg-slate-400' : 'cursor-pointer hover:bg-slate-600'} bg-slate-700 rounded p-3 text-white tracking-widest uppercase font-semibold" disabled={buttonCooldown} on:click={getRecommendations}>{buttonCooldown ? 'Por favor espera...' : 'Obtener Recomendaciones'}</button>
     {:else}
         <button class="mt-5 w-full bg-red-700 rounded p-3 text-white tracking-widest uppercase font-semibold cursor-not-allowed">Agrega al menos 1 elemento</button>
     {/if}

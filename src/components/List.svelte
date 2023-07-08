@@ -4,6 +4,7 @@
     import { token, timeRange, tokenExpired, selectedArtists, selectedTracks, collectionSize } from "../stores"
     import { toast } from '@zerodevx/svelte-toast'
     import { fade } from 'svelte/transition'
+    import open from '$lib/assets/open-external.svg'
 
     export let collectionType, collectionMap;
 
@@ -132,15 +133,18 @@
                 {#each collection as {name, art, artist_name, info, link, uri}, i}
                 <!-- svelte-ignore a11y-click-events-have-key-events -->
                 <li on:click={addItem(uri, name, artist_name, art)} transition:fade>
-                    <div class="flex flex-col items-center rounded p-6 m-4 h-[250px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600" bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
+                    <div class="flex flex-col items-center rounded p-6 m-4 h-[280px] hover:cursor-pointer bg-slate-700 hover:bg-slate-600" bind:this={tiles[uri.slice(0, -3)]} id={uri.slice(0, -3)}>
                         <img src={art} alt={name} class="w-[150px] h-[150px] object-cover" />
                         {#if artist_name != undefined && artist_name != null}
                             <div class="flex flex-col">
                                 <p class="text-gray-300 font-semibold text-xs text-center mt-2">{artist_name}</p>
                                 <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
+                                <a href={link} target="_blank" class="mx-auto mt-1"><img src={open} width="20px" height="20px"  alt="Abrir en otra ventana" /></a>
                             </div>
+                            
                         {:else}
                             <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
+                            <a href={link} target="_blank" class="mx-auto mt-1"><img src={open} width="20px" height="20px"  alt="Abrir en otra ventana" /></a>
                         {/if}
                     </div>
                 </li>
@@ -157,13 +161,15 @@
                         <img src={art} alt={name} class="w-[50px]"/>
                         {#if artist_name != undefined && artist_name != null}
                         <div class="flex flex-col w-full">
-                            <p class="text-gray-300 font-semibold text-xs text-center mt-2">{artist_name}</p>
+                            <p class="text-gray-300 font-semibold text-xs text-center">{artist_name}</p>
                             <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
                         </div>
+                        <a href={link} target="_blank" class="float-right relative top-3 right-2 z-30"><img src={open} width="30px" height="30px" alt="Abrir en otra ventana" /></a>
                         {:else}
                         <div class="flex flex-col w-full">
                             <p class="text-white font-semibold text-sm text-center mt-2">{name}</p>
                         </div>
+                        <a href={link} target="_blank" class="float-right relative top-3 right-2 z-30"><img src={open} width="30px" height="30px" alt="Abrir en otra ventana" /></a>
                         {/if}
                     </div>
                 </li>
